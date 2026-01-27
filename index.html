@@ -7,18 +7,20 @@
     <style>
         :root {
             --accent-color: #3b82f6;
-            --glass-bg: rgba(255, 255, 255, 0.92);
+            --success-color: #10b981;
+            --glass-bg: rgba(255, 255, 255, 0.88);
             --text-main: #0f172a;
-            --transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            --text-muted: #475569;
+            --transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             color: var(--text-main);
             overflow: hidden;
-            background: linear-gradient(-45deg, #1e293b, #3b82f6, #10b981, #1e293b);
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #1e3a8a, #0f172a);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
         }
@@ -41,7 +43,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all var(--transition);
-            transform: scale(0.9) translateY(30px);
+            transform: scale(0.95) translateY(20px);
         }
 
         .slide.active { 
@@ -52,67 +54,90 @@
 
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            border-radius: 40px;
-            padding: 3.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 4rem;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 3rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
             align-items: center;
             width: 90%;
-            max-width: 1300px;
-            height: 80vh;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            max-width: 1200px;
+            min-height: 75vh;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
+        .image-side { height: 100%; display: flex; align-items: center; }
         .image-side img {
             width: 100%;
-            height: 100%;
-            max-height: 500px;
+            aspect-ratio: 4/3;
             object-fit: cover;
-            border-radius: 24px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 1rem; color: var(--text-main); }
-        h2 { font-size: 2.8rem; color: var(--accent-color); margin-bottom: 1rem; }
-        p { font-size: 1.2rem; line-height: 1.6; color: #334155; margin-bottom: 1rem; }
+        h1 { font-size: 3.8rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+        h2 { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 1.2rem; font-weight: 700; }
+        
+        .badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        p { font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 1.5rem; }
         ul { list-style: none; }
-        li { font-size: 1.1rem; margin: 0.8rem 0; display: flex; align-items: flex-start; }
-        li::before { content: "✔"; margin-right: 12px; font-weight: bold; color: #10b981; }
-        code { background: #e2e8f0; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace; }
+        li { font-size: 1.05rem; margin: 0.8rem 0; display: flex; align-items: flex-start; }
+        li::before { content: "✦"; margin-right: 12px; color: var(--success-color); font-weight: bold; }
+
+        code { 
+            background: rgba(59, 130, 246, 0.1); 
+            color: var(--accent-color);
+            padding: 0.2rem 0.4rem; 
+            border-radius: 6px; 
+            font-family: monospace;
+        }
 
         .controls {
             position: fixed;
-            bottom: 2rem;
+            bottom: 2.5rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             z-index: 100;
         }
 
         button {
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
+            padding: 0.8rem 2.2rem;
+            border-radius: 12px;
             border: none;
-            background: var(--text-main);
-            color: white;
-            font-weight: bold;
+            background: white;
+            color: var(--text-main);
+            font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        button:hover { background: var(--accent-color); transform: scale(1.05); }
+        button:hover { background: var(--accent-color); color: white; transform: translateY(-2px); }
 
         .progress-bar {
             position: fixed;
-            top: 0; left: 0; height: 8px;
-            background: rgba(255,255,255,0.2);
+            top: 0; left: 0; height: 6px;
+            background: rgba(255,255,255,0.1);
             width: 100%; z-index: 1000;
         }
         .progress-fill {
             height: 100%;
-            background: #fff;
+            background: var(--success-color);
             width: 0%;
             transition: width 0.4s ease;
         }
@@ -126,78 +151,102 @@
         <section class="slide active">
             <div class="glass-card">
                 <div>
+                    <span class="badge">Official Trainer</span>
                     <h1>Agunechemba Ekene</h1>
-                    <h3 style="color: var(--accent-color); margin-bottom: 1rem;">Web Innovator & Trainer</h3>
-                    <p>Dedicated trainer for <b>ETS</b> and <b>PPH</b>. Today, we are bridging the gap between imagination and digital reality.</p>
+                    <h2>Web Innovator</h2>
+                    <p>Dedicated trainer for <b>ETS</b> and <b>PPH</b>. Today, we bridge the gap between imagination and digital reality.</p>
                 </div>
                 <div class="image-side">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800" alt="Innovation">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800" alt="Intro">
                 </div>
             </div>
         </section>
 
         <section class="slide">
             <div class="glass-card">
-                <div>
-                    <h2>HTML: The Skeleton</h2>
-                    <p>HyperText Markup Language gives a webpage its structure.</p>
-                    <ul>
-                        <li><b>Tags vs Elements:</b> A tag <code>&lt;p&gt;</code> plus content is an element.</li>
-                        <li><b>Meaning:</b> Semantic tags tell the browser what the content *is*.</li>
-                        <li><b>No Closing Tags:</b> Known as "Void Elements" (e.g., <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>).</li>
-                    </ul>
-                </div>
                 <div class="image-side">
                     <img src="https://images.unsplash.com/photo-1621839673705-68b7eda1f72e?auto=format&fit=crop&w=800" alt="HTML">
                 </div>
+                <div>
+                    <span class="badge">Foundation</span>
+                    <h2>HTML: The Skeleton</h2>
+                    <p>Structure defines purpose. Without HTML, the web has no meaning.</p>
+                    <ul>
+                        <li><b>Semantic Tags:</b> Code that describes its own content.</li>
+                        <li><b>Void Elements:</b> Tags like <code>&lt;br&gt;</code> that don't close.</li>
+                        <li><b>Attributes:</b> Providing extra info to elements (like <code>href</code>).</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
         <section class="slide">
             <div class="glass-card">
-                <div class="image-side">
-                    <img src="https://images.unsplash.com/photo-1523437113738-bbd3ee09fabf?auto=format&fit=crop&w=800" alt="Design">
-                </div>
                 <div>
+                    <span class="badge">Design</span>
                     <h2>CSS: The Beauty</h2>
+                    <p>Style creates emotion. CSS transforms a document into an experience.</p>
                     <ul>
-                        <li><b>Selectors:</b> Targeting HTML by tag, <code>.class</code>, or <code>#id</code>.</li>
-                        <li><b>Linking:</b> Connecting via the <code>&lt;link rel="stylesheet"&gt;</code> tag in HTML.</li>
-                        <li><b>Box Model:</b> Mastering <b>Margin</b> (outside), <b>Padding</b> (inside), <b>Borders</b>, and <b>Colors</b>.</li>
+                        <li><b>Selectors:</b> Targeting elements by Class, ID, or Type.</li>
+                        <li><b>Box Model:</b> Margin, Border, Padding, and Content.</li>
+                        <li><b>Flexbox/Grid:</b> Mastering modern layout systems.</li>
                     </ul>
+                </div>
+                <div class="image-side">
+                    <img src="https://images.unsplash.com/photo-1523437113738-bbd3ee09fabf?auto=format&fit=crop&w=800" alt="CSS">
                 </div>
             </div>
         </section>
 
         <section class="slide">
             <div class="glass-card">
+                <div class="image-side">
+                    <img src="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?auto=format&fit=crop&w=800" alt="JS">
+                </div>
                 <div>
+                    <span class="badge">Intelligence</span>
                     <h2>JS: The Brain</h2>
-                    <p>Making the webpage think and react.</p>
+                    <p>Behavior is key. Logic makes your static page a living application.</p>
                     <ul>
-                        <li><b>Variables:</b> Use <code>let</code> for values that change.</li>
-                        <li><b>Constants:</b> Use <code>const</code> for values that stay the same.</li>
-                        <li><b>Data Types:</b> Strings "Text", Numbers 123, and Booleans (true/false).</li>
+                        <li><b>Variables:</b> Storing data with <code>const</code> and <code>let</code>.</li>
+                        <li><b>Functions:</b> Reusable blocks of logic.</li>
+                        <li><b>Events:</b> Listening for user clicks, typing, and scrolling.</li>
                     </ul>
-                </div>
-                <div class="image-side">
-                    <img src="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?auto=format&fit=crop&w=800" alt="Javascript">
                 </div>
             </div>
         </section>
 
         <section class="slide">
             <div class="glass-card">
-                <div class="image-side">
-                    <img src="https://images.unsplash.com/photo-1675557009875-436f59939369?auto=format&fit=crop&w=800" alt="AI Coding">
-                </div>
                 <div>
+                    <span class="badge">Modern Workflow</span>
                     <h2>AI-Driven Learning</h2>
-                    <p>Using AI-generated codes on the <b>PPH Learners Playground</b>.</p>
+                    <p>Leverage the <b>PPH Learners Playground</b> to accelerate your growth.</p>
                     <ul>
-                        <li>Speed up your workflow by generating boilerplate code.</li>
-                        <li>Understand complex logic by asking AI to "explain line-by-line".</li>
-                        <li>Test ideas instantly in the sandbox.</li>
+                        <li><b>Boilerplate:</b> Generate starting code in seconds.</li>
+                        <li><b>Code Breakdown:</b> Ask AI to explain logic line-by-line.</li>
+                        <li><b>Sandboxing:</b> Test, break, and fix ideas instantly.</li>
+                    </ul>
+                </div>
+                <div class="image-side">
+                    <img src="https://images.unsplash.com/photo-1675557009875-436f59939369?auto=format&fit=crop&w=800" alt="AI">
+                </div>
+            </div>
+        </section>
+
+        <section class="slide">
+            <div class="glass-card">
+                <div class="image-side">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800" alt="Web">
+                </div>
+                <div>
+                    <span class="badge">Deployment</span>
+                    <h2>Launch Your Vision</h2>
+                    <p>Going live requires two fundamental components:</p>
+                    <ul>
+                        <li><b>Domain:</b> Your digital address (e.g., <code>yoursite.com</code>).</li>
+                        <li><b>Hosting:</b> The 24/7 server "land" where your files live.</li>
+                        <li><b>DNS:</b> The bridge connecting your address to your land.</li>
                     </ul>
                 </div>
             </div>
@@ -206,67 +255,26 @@
         <section class="slide">
             <div class="glass-card">
                 <div>
-                    <h2>Domain Names</h2>
-                    <p>The "Address" of your digital home.</p>
+                    <span class="badge">Final Step</span>
+                    <h2>Your Journey Starts Now</h2>
+                    <p>Knowledge is only potential power. Real power is <b>execution</b>.</p>
                     <ul>
-                        <li><b>Definition:</b> A human-readable string (like google.com) that points to an IP address.</li>
-                        <li><b>Meaning:</b> It is your identity on the web.</li>
-                        <li><b>TLDs:</b> Common endings include .com, .org, or .ng.</li>
+                        <li>Build a Personal Portfolio.</li>
+                        <li>Practice daily on the PPH Playground.</li>
                     </ul>
+                    <hr style="margin: 1.5rem 0; opacity: 0.1;">
+                    <p style="font-size: 0.9rem;"><b>Contact:</b> ekene@pph-trainer.com</p>
                 </div>
                 <div class="image-side">
-                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800" alt="Domain">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800" alt="End">
                 </div>
             </div>
         </section>
-
-        <section class="slide">
-            <div class="glass-card">
-                <div class="image-side">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc4b?auto=format&fit=crop&w=800" alt="Hosting">
-                </div>
-                <div>
-                    <h2>Web Hosting</h2>
-                    <p>The "Land" where your website lives.</p>
-                    <ul>
-                        <li><b>Definition:</b> Renting space on a powerful computer (server) that stays on 24/7.</li>
-                        <li><b>Meaning:</b> Without hosting, your website files stay on your laptop and can't be seen by the world.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="slide">
-    <div class="glass-card">
-        <div>
-            <h2>What Next?</h2>
-            <p>Knowledge without action is just data. Your journey starts now.</p>
-            <h2 style="font-size: 2rem; margin-top: 1rem;">Build something for yourself!</h2>
-            <ul style="margin-bottom: 2rem;">
-                <li>A Personal Portfolio to showcase your skills.</li>
-                <li>A Business Landing Page for your brand.</li>
-                <li>Practice daily on the <b>PPH Playground</b>.</li>
-            </ul>
-            
-            <hr style="border: 0; border-top: 1px solid #cbd5e1; margin-bottom: 1.5rem;">
-            
-            <div class="contact-info">
-                <p><b>Connect with Agunechemba Ekene:</b></p>
-                <p style="font-size: 1rem;">📧 Email: ekene@pph-trainer.com</p>
-                <p style="font-size: 1rem;">🌐 LinkedIn: /in/agunechemba-ekene</p>
-                <p style="font-size: 0.9rem; color: var(--accent-color); margin-top: 10px;"><i>Innovating with ETS & PPH</i></p>
-            </div>
-        </div>
-        <div class="image-side">
-            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800" alt="Training Success">
-        </div>
-    </div>
-</section>
     </div>
 
     <div class="controls">
         <button id="prev">PREVIOUS</button>
-        <button id="next">NEXT STEP</button>
+        <button id="next">NEXT</button>
     </div>
 
     <script>
